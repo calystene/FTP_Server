@@ -12,16 +12,31 @@ package ftp_server;
 public class Client {
     String login;
     String pswd;
+    String pathDirectory;
 
     public Client(String login, String pswd) {
         this.login = login;
         this.pswd = pswd;
     }
 
+    public Client(String login, String pswd, String path) {
+        this.login = login;
+        this.pswd = pswd;
+        this.pathDirectory = path;
+    }
+    
     public String getLogin() {
         return login;
     }
-
+    
+    public String getPathDirectory() {
+        return pathDirectory;
+    }
+    
+    public void setPathDirectory(String path) {
+        this.pathDirectory = path;
+    }
+    
     public void setLogin(String login) {
         this.login = login;
     }

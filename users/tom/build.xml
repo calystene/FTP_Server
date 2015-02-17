@@ -1,0 +1,44 @@
+<project name="ftpd" default="compile" basedir=".">
+
+	<property name="src.dir" value="src" />
+	<property name="build.sysclasspath" value="last" />
+	<property name="tst-dir" location="test" />
+
+	<target name="clean">
+		<delete dir="classes" />
+		<delete dir="doc" />
+	</target>
+
+	<target name="compile">
+		<mkdir dir="classes" />
+		<javac srcdir="src" destdir="classes">
+		</javac>
+	</target>
+
+	<target name="doc">
+		<javadoc packagenames="plugins.*,gui.*,extensions.*" sourcepath="${src.dir}" destdir="doc" version="true" windowtitle="Plugin">
+		</javadoc>
+		<echo message="java doc has been generated!" />
+	</target>
+
+	<!--Junit integration -->
+	<target name="compile-test" depends="compile">
+		<javac srcdir="${tst-dir}" verbose="${TALK}" destdir="classes">
+		</javac>
+	</target>
+
+	<target name="test" depends="compile-test">
+		<junit>
+			<formatter type="brief" usefile="false" />
+			<test name="tests.ServerTest" />
+			<test name="tests.FtpRequestTest" />
+		</junit>
+	</target>
+
+
+	<target name="run" depends="compile">
+		<java classname="ftpd.Server" fork="true">
+		</java>
+	</target>
+
+</project>

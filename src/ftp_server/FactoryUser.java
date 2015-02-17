@@ -6,6 +6,7 @@
 package ftp_server;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -18,8 +19,10 @@ public class FactoryUser {
     private FactoryUser() {
         collection = new HashMap<Integer,Client>();
         
-        // Ajout manuel d'un Client pour les tests
-        Client c = new Client("tom","tom");
+        // Ajout manuel de Clients pour les tests
+        Client c = new Client("tom","tom","/users/tom");
+        collection.put(c.hashCode(),c);
+        c = new Client("test","123","/users/test");
         collection.put(c.hashCode(),c);
     }
 
@@ -35,9 +38,19 @@ public class FactoryUser {
     public Client seekClient(String login, String pswd) throws ClientNotExistException {
         Client c = new Client (login, pswd);
         
-        if(collection.containsKey(c.hashCode())) return c;
+        if(collection.containsKey(c.hashCode())) return collection.get(c.hashCode());
         
         throw new ClientNotExistException("Login/password combination unknown\n");
     }
+    
+    public boolean existLogin(String login) throws ClientNotExistException {
+        for(Map.Entry<Integer,Client> e : collection.entrySet()) {
+            if(e.getValue().getLogin().equals(login)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+
 

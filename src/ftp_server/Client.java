@@ -6,8 +6,8 @@
 package ftp_server;
 
 /**
- *
- * @author pierard
+ * Client class with basic functions
+ * @author Thomas Pierard
  */
 public class Client {
     String login;

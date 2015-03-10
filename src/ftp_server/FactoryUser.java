@@ -9,8 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author pierard
+ * Simply Factory to manage the Client of this server
+ * Clients are created in this constructor, it isn't a good way, but it's only for this project
+ * @author Thomas Pierard
  */
 public class FactoryUser {
     HashMap<Integer,Client> collection;
@@ -35,6 +36,13 @@ public class FactoryUser {
     }
     
     
+    /**
+     * Check if the user is known by the server
+     * @param login User's login
+     * @param pswd User's password
+     * @return The Client if it exists
+     * @throws ClientNotExistException 
+     */
     public Client seekClient(String login, String pswd) throws ClientNotExistException {
         Client c = new Client (login, pswd);
         
@@ -43,6 +51,12 @@ public class FactoryUser {
         throw new ClientNotExistException("Login/password combination unknown\n");
     }
     
+    /**
+     * Check if the login is known by the server
+     * @param login User's login
+     * @return True if the login is known by the server
+     * @throws ClientNotExistException 
+     */
     public boolean existLogin(String login) throws ClientNotExistException {
         for(Map.Entry<Integer,Client> e : collection.entrySet()) {
             if(e.getValue().getLogin().equals(login)) {

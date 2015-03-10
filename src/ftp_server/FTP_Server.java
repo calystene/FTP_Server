@@ -6,8 +6,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author pierard
+ * This class is an implementation of a basic FTP server
+ * It's possible to connect it only if the user is known by the server.
+ * Existing users are : login : tom / pswd : tom  ||  login : test / pswd : 123
+ * To ficilitate the users management only for this project, users are created in the Constructor of FactoryUser
+ * and a directory must be created manually in the directory "users" of this application.
+ * FTP Server allows many commands which are visible in the class FTP_Request
+ * @author Thomas Pierard
  */
 public class FTP_Server {
 
@@ -18,7 +23,8 @@ public class FTP_Server {
         try {
             sock = new ServerSocket(PORT_SERVER);
             System.out.println("Server FTP started on port : " + PORT_SERVER);
-
+            
+            // waiting for a new connection
             while (true) {
                 Socket connSocket = sock.accept();
                 FTP_Request r = new FTP_Request(connSocket);
